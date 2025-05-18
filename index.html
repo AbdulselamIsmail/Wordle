@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Wordle Oyunu</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="keyboard.css" />
+  </head>
+  <body class="bg-light">
+    <div class="container mt-5">
+      <h1 class="mb-4 display-4 fw-bold">Wordle</h1>
+      <div
+        id="wordle-board"
+        class="d-flex flex-column align-items-center gap-2"
+      >
+        <div class="row d-flex justify-content-center gap-2">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row d-flex justify-content-center gap-2">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row d-flex justify-content-center gap-2">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row d-flex justify-content-center gap-2">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row d-flex justify-content-center gap-2">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row d-flex justify-content-center gap-2">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+      </div>
+      <div id="message" class="text-danger mt-3 fw-semibold"></div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div class="modal fade" id="gameOverModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gameOverTitle"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p id="gameOverMessage"></p>
+            <div id="shareResults" class="mb-3">
+              <p>Share your results:</p>
+              <div id="shareGrid" class="d-flex flex-column gap-1"></div>
+              <button id="copyResultsBtn" class="btn btn-primary mt-2">
+                Copy Results
+              </button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="playAgainBtn">
+              Play Again
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="keyboard">
+      <div class="key-row">
+        <button class="key">Q</button><button class="key">W</button
+        ><button class="key">E</button><button class="key">R</button
+        ><button class="key">T</button> <button class="key">Y</button
+        ><button class="key">U</button><button class="key">I</button
+        ><button class="key">O</button><button class="key">P</button>
+      </div>
+      <div class="key-row">
+        <button class="key">A</button><button class="key">S</button
+        ><button class="key">D</button><button class="key">F</button
+        ><button class="key">G</button> <button class="key">H</button
+        ><button class="key">J</button><button class="key">K</button
+        ><button class="key">L</button>
+      </div>
+      <div class="key-row">
+        <button class="key delete">Sil</button>
+        <button class="key">Z</button><button class="key">X</button
+        ><button class="key">C</button><button class="key">V</button>
+        <button class="key">B</button><button class="key">N</button
+        ><button class="key">M</button>
+        <button class="key special">Giriş</button>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="script.js"></script>
+    <!--script src="keyboard.js"></script-->
+  </body>
+</html>

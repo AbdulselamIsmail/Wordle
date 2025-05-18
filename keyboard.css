@@ -1,0 +1,29 @@
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.key-row {
+  display: flex;
+  gap: 8px;
+}
+
+.key {
+  padding: 14px 18px;
+  background-color: #666;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.key.special {
+  background-color: #007a36;
+}
+
+.key.delete {
+  background-color: #aa2e2e;
+}
