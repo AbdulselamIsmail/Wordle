@@ -82,21 +82,24 @@ $(document).on("keydown", function (e) {
 function newGame() {
   getWord();
   gameOver = false;
+  isWin = false;
   currentRow = 0;
   currentCol = 0;
 
-  // Clear the game board
+  // Oyun tahtasını sil
   $("#wordle-board").empty();
 
-  // Create rows for each attempt
+  // Oyun için yeni kutucuklar oluştur
   for (let i = 0; i < 6; i++) {
     const $row = $("<div>").addClass("row d-flex justify-content-center gap-2");
     for (let j = 0; j < 5; j++) {
       $("<div>").addClass("tile").appendTo($row);
     }
-
     $("#wordle-board").append($row);
   }
+
+  // Klavye renkleri resetle
+  $(".key").removeClass("correct present absent");
 
   $("#gameOverModal").modal("hide");
 }
@@ -129,31 +132,32 @@ function checkWord(guess, word) {
   const guessLetters = guess.split("");
   const wordLetters = word.split("");
   const result = Array(5).fill("absent");
-  //Doğru harfelri işaretleyelim
+
+  // doğru harfleri işaretle
   for (let i = 0; i < 5; i++) {
     if (wordLetters[i] == guessLetters[i]) {
       result[i] = "correct";
-      wordLetters[i] = null; //İleride harf kelimede var mı yok mu diye kontrol ederken harfı iki defa almamak için
+      wordLetters[i] = null;
     }
   }
 
-  //Harfler kelimede var mı diye kontrol edelim
+  // Olan harfleri işaretle
   for (let i = 0; i < 5; i++) {
-    if (result[i] == "correct") {
-      continue;
-    }
+    if (result[i] == "correct") continue;
     const index = wordLetters.indexOf(guessLetters[i]);
     if (index !== -1) {
       result[i] = "present";
-      wordLetters[index] = null; // Kontrol ettiğimiz harfi silelim
+      wordLetters[index] = null;
     }
   }
+  // Renkeleri güncelleyelim
   const tiles = $("#wordle-board .row").eq(currentRow).find(".tile");
-  //Kutucukların rrenklerini ayarlayalım
   for (let i = 0; i < 5; i++) {
-    let tile = tiles[i];
-    tile.classList.add(result[i]);
+    tiles[i].classList.add(result[i]);
   }
+
+  // klavye renkleri de güncelleyelim
+  updateKeyboard(result, guess);
 }
 
 function endGame() {
@@ -172,4 +176,69 @@ function endGame() {
   $("#gameOverModal").modal("show");
 }
 
-function updateLetters(result) {}
+//Klavye kodu
+$("#keyboard").on("click", ".key", function () {
+  const key = $(this).data("key");
+
+  if (gameOver && key !== "enter") {
+    return;
+  }
+
+  if (/^[a-z]$/.test(key)) {
+    if (currentRow > 5) return;
+    if (currentCol < 5) {
+      getTile(currentRow, currentCol).text(key.toUpperCase());
+      currentCol++;
+    }
+  } else if (key === "enter") {
+    if (currentCol < 5) {
+      showMessage("5 harfli bir kelime girmelisiniz!");
+    } else {
+      let guess = getCurrentGuess();
+
+      if (!isValidWord(guess)) {
+        showMessage("Kelime listesinde bulunamadi!");
+      } else {
+        checkWord(guess, word);
+        if (guess == word) {
+          isWin = true;
+          endGame(isWin);
+          return;
+        }
+        currentRow++;
+        currentCol = 0;
+        if (currentRow > 5) {
+          gameOver = true;
+          endGame();
+          return;
+        }
+      }
+    }
+  } else if (key === "backspace") {
+    if (currentCol > 0) {
+      currentCol--;
+      getTile(currentRow, currentCol).text("");
+    }
+  }
+});
+
+function updateKeyboard(result, guess) {
+  const guessLetters = guess.split("");
+
+  guessLetters.forEach((letter, i) => {
+    const $key = $(`.key[data-key="${letter}"]`);
+    if (!$key.length) return;
+
+    if (result[i] === "correct") {
+      $key.addClass("correct");
+    } else if (result[i] === "present" && !$key.hasClass("correct")) {
+      $key.addClass("present");
+    } else if (
+      result[i] === "absent" &&
+      !$key.hasClass("correct") &&
+      !$key.hasClass("present")
+    ) {
+      $key.addClass("absent");
+    }
+  });
+}
