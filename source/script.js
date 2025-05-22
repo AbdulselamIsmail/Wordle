@@ -230,14 +230,17 @@ function updateKeyboard(result, guess) {
     if (!$key.length) return;
 
     if (result[i] === "correct") {
+      $key.removeClass(" present absent");
       $key.addClass("correct");
     } else if (result[i] === "present" && !$key.hasClass("correct")) {
+      $key.removeClass("correct absent");
       $key.addClass("present");
     } else if (
       result[i] === "absent" &&
       !$key.hasClass("correct") &&
       !$key.hasClass("present")
     ) {
+      $key.removeClass(" present correct");
       $key.addClass("absent");
     }
   });
