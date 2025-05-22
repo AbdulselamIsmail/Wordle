@@ -5,10 +5,11 @@ BİLGİSAYAR MÜHENDİSLİĞİ BÖLÜMÜ
 PROJE RAPORU
 Proje Adı: Wordle Web Oyunu
 Ders: Web Arayüz Geliştirme
-Hazırlayanlar : Zhanarbek Turdimatov                       Öğrenci No :  22181616072
-                         Abdülselam İsmail                              Öğrenci  No : 23181616010
-                         Bektur MUKHTARBEKOV               Öğrenci  No : 23181616407
-                        Soltan Sanjar Akyyev                           Öğrenci  No : 23181616416
+Hazırlayanlar :         
+  Zhanarbek Turdimatov              
+  Abdülselam İsmail                      
+  Bektur MUKHTARBEKOV  
+  Soltan Sanjar Akyyev
 
 Tarih: 21.05.2025
  
